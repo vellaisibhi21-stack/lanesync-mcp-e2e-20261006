@@ -1,0 +1,29 @@
+version: v1
+name: your-app-name
+release_naming:
+  format: semver-v-strict
+  mapping: R1
+stages:
+  planning:
+    require_milestone: true
+    require_issues_assigned: true
+  development:
+    branch: main
+    deploy_target: dev
+    required_checks: []
+    required_reviewers:
+      min_approvals: 1
+  testing:
+    branch_pattern: release/**
+    deploy_target: staging
+    required_checks: []
+    required_reviewers:
+      min_approvals: 1
+  evidencing:
+    required_reviewers:
+      min_approvals: 1
+  deployment:
+    target: production
+    required_checks: []
+    promotion: manual
+    requires_evidence_approval: true

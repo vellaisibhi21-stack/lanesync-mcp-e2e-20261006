@@ -10,12 +10,14 @@ stages:
   development:
     branch: main
     deploy_target: dev
-    required_checks: []
+    required_checks:
+      - build
     required_reviewers:
       min_approvals: 1
   testing:
     branch_pattern: release/**
-    required_checks: []
+    required_checks:
+      - build
     required_reviewers:
       min_approvals: 1
     deploy_target: staging
@@ -24,6 +26,7 @@ stages:
       min_approvals: 1
   deployment:
     target: production
-    required_checks: []
+    required_checks:
+      - build
     promotion: manual
     requires_evidence_approval: true

@@ -15,10 +15,10 @@ stages:
       min_approvals: 1
   testing:
     branch_pattern: release/**
-    deploy_target: staging
     required_checks: []
     required_reviewers:
       min_approvals: 1
+    deploy_target: staging
   evidencing:
     required_reviewers:
       min_approvals: 1

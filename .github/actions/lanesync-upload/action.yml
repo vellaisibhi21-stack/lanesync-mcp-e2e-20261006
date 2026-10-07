@@ -28,7 +28,7 @@ inputs:
   pipeline:
     description: 'CI pipeline / check name (matches sdlc.yaml required check)'
     required: false
-    default: 'CI — Build & Test'
+    default: ''
 
 outputs:
   evidence-id:
@@ -82,6 +82,8 @@ runs:
       run: |
         # Runs under `bash -eo pipefail`: every helper below must tolerate
         # "no match" / missing files without a non-zero exit.
+        PIPELINE="${PIPELINE:-${GITHUB_WORKFLOW:-${GITHUB_JOB:-}}}"
+        [ -n "$PIPELINE" ] || { echo "::error::No CI pipeline identity is available"; exit 1; }
         OUT="${RUNNER_TEMP:-/tmp}/lanesync"
         rm -rf "$OUT" && mkdir -p "$OUT"
         MAX_FILE_BYTES=5000000
